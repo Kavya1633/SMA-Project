@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-light bg-white border-bottom px-4">
+    <span class="navbar-brand fw-semibold" style="color:#534AB7;">
+        {{ case.case_name }}
+    </span>
+    <div class="d-flex gap-2">
+        <a href="/dashboard" class="btn btn-sm btn-outline-secondary">
+            ← Back to cases
+        </a>
+        <a href="/logout" class="btn btn-sm btn-outline-danger">Logout</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+
+    {# Case details card #}
+    <div class="card border mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="text-muted mb-1" style="font-size:12px;">Case name</p>
+                    <p class="fw-semibold mb-0">{{ case.case_name }}</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1" style="font-size:12px;">Keyword</p>
+                    <p class="fw-semibold mb-0">{{ case.keyword }}</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1" style="font-size:12px;">Platform</p>
+                    <p class="fw-semibold mb-0">{{ case.platform }}</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-muted mb-1" style="font-size:12px;">Created</p>
+                    <p class="fw-semibold mb-0">{{ case.created_at }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Module selection grid #}
+    <h5 class="mb-3">Select a module to analyse</h5>
+    <div class="row g-3">
+
+        {% set modules = [
+            ('Sentiment Analysis', 'M1', 'Positive / Negative / Neutral', '#E6F1FB', '#0C447C'),
+            ('Trending Topics', 'M2', 'Hashtag extraction & ranking', '#EEEDFE', '#3C3489'),
+            ('Network Analysis', 'M3', 'Graphs, communities, influencers', '#E1F5EE', '#085041'),
+            ('Recommendations', 'M4', 'Collaborative & content filtering', '#FAEEDA', '#633806'),
+            ('Fake News Detection', 'M5', 'Classify posts as Fake/Real', '#FCEBEB', '#791F1F'),
+            ('User Segmentation', 'M6', 'Cluster users by behaviour', '#FBEAF0', '#72243E'),
+            ('Data Visualization', 'M7', 'Charts for engagement & reach', '#EAF3DE', '#27500A'),
+            ('Ad Campaign', 'M8', 'CTR, conversion rate, ROI', '#FAECE7', '#712B13'),
+            ('Influencer Detection', 'M9', 'Eigenvector centrality', '#E6F1FB', '#0C447C'),
+            ('Real-Time Monitor', 'M10', 'Track keywords live', '#EEEDFE', '#3C3489'),
+            ('Competitor Analysis', 'M11', 'Compare growth & engagement', '#E1F5EE', '#085041'),
+            ('Popularity Prediction', 'M12', 'Predict engagement with ML', '#FAEEDA', '#633806'),
+        ] %}
+        {# set creates a variable in Jinja2 — here a list of tuples #}
+
+        {% for name, tag, desc, bg, color in modules %}
+        <div class="col-md-3">
+            <div class="card border h-100" style="cursor:pointer;"
+                 onclick="alert('{{ name }} module coming soon!')">
+                <div class="card-body">
+                    <span class="badge mb-2" style="background:{{ bg }}; color:{{ color }};">
+                        {{ tag }}
+                    </span>
+                    <h6 class="mb-1">{{ name }}</h6>
+                    <p class="text-muted mb-0" style="font-size:12px;">{{ desc }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}
